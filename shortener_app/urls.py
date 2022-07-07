@@ -9,4 +9,5 @@ urlpatterns = [
     path('signin/', SignIn.as_view(), name='signin'),
     path('logout/', logout_view, name='logout'),
     path('shortener/', shortener_view, name='shortener'),
+    path('my_links/', links_view, name='links'),
 ]
