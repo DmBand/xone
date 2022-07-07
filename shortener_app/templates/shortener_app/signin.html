@@ -1,0 +1,12 @@
+{% extends 'shortener_app/base.html' %}
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Войти</button>
+</form>
+{% endblock content %}
