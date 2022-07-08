@@ -15,16 +15,17 @@
         <header class="header">
             <nav class="nav">
                 {% if request.user.is_authenticated %}
-                <h2 class="nav-btn">{{ request.user.username }}</h2>
+                <div class="username">
+                    <h2 class="nav-btn">{{ request.user.username }}</h2>
+                    <a href="{% url 'shortener_app:logout' %}" class="log-out">Выход</a>
+                </div>
                 <ul class="nav-list">
-                    <li class="nav-item"></li>
-                        <li class="nav-item">
-                            <a href="{% url 'shortener_app:shortener' %}" class="nav-link">Сокращатель ссылок</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'shortener_app:links' %}" class="nav-link">Мои ссылки</a>
-                        </li>
-                    </div>                    
+                    <li class="nav-item">
+                        <a href="{% url 'shortener_app:shortener' %}" class="nav-link">Сокращатель ссылок</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'shortener_app:links' %}" class="nav-link">Мои ссылки</a>
+                    </li>                
                 </ul>
                 {% else %}               
                 <h1 class="title">Сокращатель ссылок</h1>

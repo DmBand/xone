@@ -17,12 +17,12 @@ def shortener_view(request):
     else:
         form = ShortenerForm(user=request.user, data=request.POST)
         if form.is_valid():
-            protocol = 'https://' if request.is_secure() else 'http://'
-            prefix = f'{protocol}{request.META["HTTP_HOST"]}/'
+            prefix = f'{request.META["HTTP_HOST"]}/'
             short_link = shortener(user=request.user, form=form)
             context = {
                 'title': 'Готовая ссылка',
-                'link': f'{prefix}{short_link}'
+                'full_link': f'{prefix}{short_link}',
+                'url': short_link
             }
             return render(request, 'shortener_app/link.html', context)
 
@@ -86,8 +86,8 @@ def links_view(request):
 
 def redirect_view(request, link):
     """ Редирект на оригинальную страницу """
-    link_ = ShortLink.objects.filter(owner=request.user.pk, short_link=link)
+    link_ = ShortLink.objects.filter(short_link=link)
     if link_:
         url = link_.values()[0].get('original_link')
         return redirect(url)
-    raise Http404('Нет такой ссылки')
+    raise Http404('Страница не найдена')

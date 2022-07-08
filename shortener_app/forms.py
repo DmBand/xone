@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from .models import *
+from .models import ShortLink
 
 
 class UserForm(UserCreationForm):

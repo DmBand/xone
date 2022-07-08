@@ -8,6 +8,6 @@
 {% block content %}
     <div class="link-block">
         <h1 class="title2">Ваша ссылка:</h1>
-        <p class="short-link">{{ link }}</p>
+        <a href="{% url 'shortener_app:redirect' url %}" class="short-link" target="_blank">{{ full_link }}</a>
     </div>
 {% endblock content %}
