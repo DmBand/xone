@@ -1,28 +1,40 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.exceptions import ValidationError
 
 from .models import *
 
 
-class ProfileForm(forms.ModelForm):
-    """ Форма ввода доменного имени """
+class UserForm(UserCreationForm):
+    class Meta: 
+        model = User
+        fields = {
+            'username', 'password1', 'password2'
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'input'}),
+        }
 
-    class Meta:
-        model = Profile
-        fields = ('domain',)
-
-    def clean_domain(self):
-        domain = self.cleaned_data.get('domain').strip()
-        if Profile.objects.filter(domain__iexact=domain).exists():
-            raise ValidationError('Данное доменное имя занято')
-        return domain
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'input'})
+        self.fields['password2'].widget = forms.PasswordInput(attrs={'class': 'input'})
 
 
 class LoginUserForm(AuthenticationForm):
     """ Форма авторизации пользователей """
-    username = forms.CharField(label='Логин', widget=forms.TextInput())
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput())
+    username = forms.CharField(
+        label='Логин', 
+        widget=forms.TextInput(
+            attrs={'class': 'input'}
+        )
+    )
+    password = forms.CharField(
+        label='Пароль', 
+        widget=forms.PasswordInput(
+            attrs={'class': 'input'}
+        )
+    )
 
 
 class ShortenerForm(forms.ModelForm):
@@ -35,11 +47,18 @@ class ShortenerForm(forms.ModelForm):
     class Meta:
         model = ShortLink
         fields = ('site_name', 'original_link',)
-        widgets = {'original_link': forms.URLInput()}
+        widgets = {
+            'site_name': forms.TextInput(
+                attrs={'class': 'input'}
+            ),
+            'original_link': forms.URLInput(
+                attrs={'class': 'input'}
+            )
+        }
 
     def clean_site_name(self):
         site_name = self.cleaned_data.get('site_name')
-        profile = Profile.objects.get(pk=self.user.profile.pk)
+        profile = User.objects.get(pk=self.user.pk)
         if profile.shortlink_set.filter(site_name__iexact=site_name).exists():
-            raise ValidationError('У вас уже есть сайт с таким именем')
+            raise ValidationError('У вас уже есть сайт с таким названием')
         return site_name

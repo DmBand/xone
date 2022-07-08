@@ -6,5 +6,8 @@
 {% endblock title %}
 
 {% block content %}
-
+{% for l in links %}
+<p>{{ l.site_name }}</p>
+<p>{{ l.short_link }}</p>
+{% endfor %}
 {% endblock content %}
