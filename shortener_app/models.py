@@ -11,4 +11,4 @@ class ShortLink(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.site_name
+        return str(self.site_name)

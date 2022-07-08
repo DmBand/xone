@@ -7,17 +7,17 @@ from .models import ShortLink
 
 
 class UserForm(UserCreationForm):
-    class Meta: 
+    """ Форма решистрации пользователей """
+
+    class Meta:
         model = User
-        fields = {
-            'username', 'password1', 'password2'
-        }
+        fields = {'username', 'password1', 'password2'}
         widgets = {
             'username': forms.TextInput(attrs={'class': 'input'}),
         }
 
     def __init__(self, *args, **kwargs):
-        super(UserForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'input'})
         self.fields['password2'].widget = forms.PasswordInput(attrs={'class': 'input'})
 
@@ -25,13 +25,13 @@ class UserForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     """ Форма авторизации пользователей """
     username = forms.CharField(
-        label='Логин', 
+        label='Логин',
         widget=forms.TextInput(
             attrs={'class': 'input'}
         )
     )
     password = forms.CharField(
-        label='Пароль', 
+        label='Пароль',
         widget=forms.PasswordInput(
             attrs={'class': 'input'}
         )
@@ -43,7 +43,7 @@ class ShortenerForm(forms.ModelForm):
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        super(ShortenerForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     class Meta:
         model = ShortLink

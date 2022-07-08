@@ -1,6 +1,10 @@
 from django.urls import path
-from .views import *
-
+from .views import shortener_view, \
+    signup_view, \
+    SignIn, \
+    logout_view, \
+    links_view, \
+    redirect_view
 
 app_name = 'shortener_app'
 urlpatterns = [
