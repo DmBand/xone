@@ -1,0 +1,20 @@
+{% extends 'shortener_app/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post" class="form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label for="{{ form.site_name.id_for_label }}" class="label-login">Введите название сайта</label>
+    {{ form.site_name.errors }}
+    {{ form.site_name }}
+    <label for="{{ form.original_link.id_for_label }}" class="label-login">Вставьте ссылку</label>
+    {{ form.original_link.errors }}
+    {{ form.original_link }}
+    <button type="submit" class="btn">Сгенерировать сокращенную ссылку</button>
+</form>
+{% endblock content %}

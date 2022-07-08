@@ -1,0 +1,27 @@
+{% extends 'shortener_app/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    {% if links %}
+        {% for l in links %}
+            <div class="one-link">
+                <p class="label">Название сайта</p>
+                <p class="name">{{ l.site_name }}</p>
+                <p class="label">Кортокая ссылка</p>
+                <a class="name" href="{% url 'shortener_app:redirect' l.short_link %}" target="_blank">{{ request.get_host }}/{{ l.short_link }}</a>
+                <p class="label">Оригинальная ссылка</p>
+                <a class="name" href="{{ l.original_link }}" target="_blank">{{ l.original_link|truncatechars:30}}</a>
+                <p class="label">Дата создания</p>
+                <p class="name">{{ l.date_added|date:"d.m.Y H:i" }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="label" style="margin: 20px auto 0;">У Вас нет созданных ссылок</p>
+    {% endif %}
+</div>
+{% endblock content %} 

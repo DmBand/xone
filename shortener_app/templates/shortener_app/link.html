@@ -1,0 +1,13 @@
+{% extends 'shortener_app/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock title %}
+
+{% block content %}
+    <div class="link-block">
+        <h1 class="title2">Ваша ссылка:</h1>
+        <a href="{% url 'shortener_app:redirect' url %}" class="short-link" target="_blank">{{ full_link }}</a>
+    </div>
+{% endblock content %}

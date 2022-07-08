@@ -1,0 +1,22 @@
+{% extends 'shortener_app/base.html' %}
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post" class="form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label for="{{ form.username.id_for_label }}" class="label-login">Имя пользователя</label>
+    {{ form.username.errors }}
+    {{ form.username }}
+    <label for="{{ form.password1.id_for_label }}" class="label-login">Пароль</label>
+    {{ form.password1.errors }}
+    {{ form.password1 }}
+    <label for="{{ form.password2.id_for_label }}" class="label-login">Подтвердите пароль</label>
+    {{ form.password2.errors }}
+    {{ form.password2 }}
+    <button type="submit" class="login-btn">Регистрация</button>
+    <a class="signup-btn" href="{% url 'shortener_app:signin' %}">Войти</a>
+</form>
+{% endblock content %}
