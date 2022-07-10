@@ -1,5 +1,6 @@
-```Python 3.10.2``` ```Django 3.2.9```
 ## Задание 1
+```Python 3.10.2``` ```Django 3.2.9```
+
 Деплой: [sl-xone.herokuapp.com](https://sl-xone.herokuapp.com/)
 
 ## Задание 2
