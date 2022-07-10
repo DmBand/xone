@@ -13,7 +13,7 @@ from .services import shortener
 
 @login_required(login_url='shortener_app:signin')
 def shortener_view(request):
-    """ Сокращатель ссылок """
+    """ Страница сокращения ссылок """
     if request.method != 'POST':
         form = ShortenerForm(user=request.user)
     else:
@@ -36,7 +36,7 @@ def shortener_view(request):
 
 
 def signup_view(request):
-    """ Регистрация пользователя """
+    """ Страница регистрации пользователей """
     if request.method != 'POST':
         form = UserForm()
     else:
@@ -54,7 +54,7 @@ def signup_view(request):
 
 
 class SignIn(LoginView):
-    """ Авторизация пользователя """
+    """ Страница авторизации пользователей """
     form_class = LoginUserForm
     template_name = 'shortener_app/signin.html'
 
@@ -76,7 +76,7 @@ def logout_view(request):
 
 @login_required(login_url='shortener_app:signin')
 def links_view(request):
-    """ Просмотр всех ссылок пользователя """
+    """ Страница просмотра всех ссылок пользователя """
     user = User.objects.get(pk=request.user.pk)
     links = user.shortlink_set.order_by('-date_added')
     context = {
@@ -87,7 +87,7 @@ def links_view(request):
 
 
 def redirect_view(request, link):
-    """ Редирект на оригинальную страницу """
+    """ Страница редиректа на оригинальную страницу ссылки """
     link_ = ShortLink.objects.filter(short_link=link)
     if link_:
         url = link_.values()[0].get('original_link')
