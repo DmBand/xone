@@ -11,7 +11,11 @@ class UserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = {'username', 'password1', 'password2'}
+        fields = (
+            'username',
+            'password1',
+            'password2',
+        )
         widgets = {
             'username': forms.TextInput(attrs={'class': 'input'}),
         }
@@ -26,15 +30,11 @@ class LoginUserForm(AuthenticationForm):
     """ Форма авторизации пользователей """
     username = forms.CharField(
         label='Логин',
-        widget=forms.TextInput(
-            attrs={'class': 'input'}
-        )
+        widget=forms.TextInput(attrs={'class': 'input'}),
     )
     password = forms.CharField(
         label='Пароль',
-        widget=forms.PasswordInput(
-            attrs={'class': 'input'}
-        )
+        widget=forms.PasswordInput(attrs={'class': 'input'}),
     )
 
 
@@ -47,7 +47,10 @@ class ShortenerForm(forms.ModelForm):
 
     class Meta:
         model = ShortLink
-        fields = ('site_name', 'original_link',)
+        fields = (
+            'site_name',
+            'original_link',
+        )
         widgets = {
             'site_name': forms.TextInput(
                 attrs={'class': 'input'}

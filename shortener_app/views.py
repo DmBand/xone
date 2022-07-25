@@ -24,7 +24,7 @@ def shortener_view(request):
             context = {
                 'title': 'Готовая ссылка',
                 'full_link': f'{prefix}{short_link}',
-                'url': short_link
+                'url': short_link,
             }
             return render(request, 'shortener_app/link.html', context)
 
@@ -81,7 +81,7 @@ def links_view(request):
     links = user.shortlink_set.order_by('-date_added')
     context = {
         'title': 'Мои ссылки',
-        'links': links
+        'links': links,
     }
     return render(request, 'shortener_app/my_links.html', context)
 
